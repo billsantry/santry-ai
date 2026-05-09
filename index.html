@@ -37,6 +37,7 @@
             --verb-comfort: #5b7f5e;
             --verb-decode: #8b6b3e;
             --verb-predict: #3e6b8b;
+            --verb-discover: #6b8b5e;
             --verb-play: #8b3e6b;
             --verb-admire: #7a7168;
         }
@@ -100,6 +101,7 @@
         .verb-comfort { background: rgba(91, 127, 94, 0.1); color: var(--verb-comfort); }
         .verb-decode { background: rgba(139, 107, 62, 0.1); color: var(--verb-decode); }
         .verb-predict { background: rgba(62, 107, 139, 0.1); color: var(--verb-predict); }
+        .verb-discover { background: rgba(107, 139, 94, 0.1); color: var(--verb-discover); }
         .verb-play { background: rgba(139, 62, 107, 0.1); color: var(--verb-play); }
         .verb-admire { background: rgba(122, 113, 104, 0.1); color: var(--verb-admire); }
         .experiment h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
@@ -163,6 +165,17 @@
 
         <div class="experiment fade-in">
             <div class="experiment-header">
+                <span class="verb-tag verb-discover">discover</span>
+                <h3>FedCert</h3>
+            </div>
+            <a href="https://fedcert.santry.ai" target="_blank"><img src="fedcert.jpg" alt="FedCert screenshot" class="screenshot" loading="lazy"></a>
+            <p class="wondering">USAJobs has thousands of open postings, and federal applicants spend hours scrolling through them looking for a fit. Most of those postings aren&#8217;t actually open to most people  -  hiring path eligibility, grade ceilings, and series alignment quietly disqualify you before you even read the qualifications. Could AI read a resume the way a federal HR specialist would, and rank only the postings you can actually win?</p>
+            <p class="surprised">The honest scoring matters more than the matching. Most resume-screening tools give everyone an inflated score because users like high numbers. FedCert deliberately scores most fits in the 4-7 range, with 8+ reserved for genuine matches. A 6/10 with three honest reasons why is more actionable than a fake 9/10  -  and people seem to trust the tool more <em>because</em> it&#8217;s willing to give them a 4.</p>
+            <a href="https://fedcert.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+
+        <div class="experiment fade-in">
+            <div class="experiment-header">
                 <span class="verb-tag verb-decode">decode</span>
                 <h3>MedBill Explainer</h3>
             </div>
@@ -171,19 +184,9 @@
             <p class="surprised">Two things stood out. First, the appeal letter generation. I built it as a secondary feature, almost an afterthought, but it turned out to be the thing people actually needed. Most people don't want to read their bill - they want to know if something's wrong and what to do about it. Second, privacy had to be non-negotiable. The app stores nothing: no database, no server disk, no AI training on your data. Everything lives in memory for seconds, then disappears. There's a sample bill built in so you can try it without uploading anything personal.</p>
             <a href="https://medbill.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-decode">decode</span>
-                <h3>Resume Rewrite Bot</h3>
-            </div>
-            <a href="https://resume.santry.ai" target="_blank"><img src="resume.jpg" alt="Resume Rewrite Bot screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">Everyone says &#8220;tailor your resume to the job description,&#8221; but nobody actually does it because it takes forever. Could AI do the tedious part - matching your experience to their language - while keeping your voice?</p>
-            <p class="surprised">The MatchMeter score. I added it as a quick pre-check - how well does your resume already fit this job? - and it became the most useful part. Some people realized they were applying to the wrong jobs entirely. The rewrite was less important than the honest assessment.</p>
-            <a href="https://resume.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-        <div class="experiment fade-in">
+		
+		
+		<div class="experiment fade-in">
             <div class="experiment-header">
                 <span class="verb-tag verb-decode">decode</span>
                 <h3>Legislative Intelligence Platform</h3>
