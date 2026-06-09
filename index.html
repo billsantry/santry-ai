@@ -1,330 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>santry.ai</title>
-    <meta name="description" content="Experiments in what AI can actually do. Built by Bill Santry.">
-    <meta name="author" content="Bill Santry">
-    <meta property="article:published_time" content="2026-04-06">
-    <meta property="article:author" content="Bill Santry">
-    <meta property="og:title" content="santry.ai">
-    <meta property="og:description" content="We've found a unicorn and are using it to pull a plow. These experiments explore how far AI can actually go.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://santry.ai">
-    <meta property="og:image" content="https://santry.ai/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="santry.ai">
-    <meta name="twitter:description" content="We've found a unicorn and are using it to pull a plow. These experiments explore how far AI can actually go.">
-    <meta name="twitter:image" content="https://santry.ai/og-image.jpg">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --warm-bg: #f5f0e8;
-            --ink: #1a1714;
-            --ink-soft: #3d3730;
-            --ink-muted: #7a7168;
-            --ink-faint: #b0a899;
-            --accent: #c62828;
-            --accent-hover: #a83d22;
-            --card-bg: #faf7f2;
-            --card-border: rgba(26, 23, 20, 0.06);
-            --verb-comfort: #5b7f5e;
-            --verb-decode: #8b6b3e;
-            --verb-predict: #3e6b8b;
-            --verb-discover: #6b8b5e;
-            --verb-play: #8b3e6b;
-            --verb-admire: #7a7168;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--warm-bg);
-            color: var(--ink);
-            font-family: 'Hanken Grotesk', sans-serif;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-        }
-        .container { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 24px; }
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(245, 240, 232, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); }
-        nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-        nav .site-name { text-decoration: none; display: flex; align-items: center; }
-        nav .site-name img { height: 28px; width: auto; }
-        nav .nav-links { display: flex; gap: 24px; list-style: none; }
-        nav .nav-links a { font-size: 13px; font-weight: 500; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.02em; text-transform: lowercase; transition: color 0.2s; }
-        nav .nav-links a:hover { color: var(--ink); }
-        .hero { padding: 140px 0 32px; text-align: left; }
-        .hero .name { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
-        .hero blockquote { font-family: 'Newsreader', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 300; font-style: italic; line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 12px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
-        .hero .attribution { font-size: 13px; color: var(--ink-faint); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s; }
-        .hero .attribution a { color: var(--ink-faint); border-bottom: 1px solid var(--card-border); text-decoration: none; }
-        .hero .attribution a:hover { color: var(--ink); border-color: var(--ink-muted); }
-        .hero .intro { font-size: 16px; line-height: 1.8; color: var(--ink-soft); max-width: 580px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s; }
-        .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px; padding-top: 48px; }
-        .experiments { padding: 0 0 40px; }
-        .experiment { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; margin-bottom: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .experiment:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(26, 23, 20, 0.06); }
-        .experiment .screenshot, .admire-card .screenshot {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid var(--card-border);
-            display: block;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-            cursor: pointer;
-        }
-        .experiment .screenshot:hover, .admire-card .screenshot:hover {
-            transform: scale(1.015);
-            box-shadow: 0 6px 24px rgba(26, 23, 20, 0.1);
-            opacity: 0.92;
-        }
-        .experiment .screenshot:active, .admire-card .screenshot:active {
-            transform: scale(0.995);
-        }
-        .experiment-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-        .verb-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: lowercase; padding: 3px 10px; border-radius: 4px; line-height: 1; }
-        .verb-comfort { background: rgba(91, 127, 94, 0.1); color: var(--verb-comfort); }
-        .verb-decode { background: rgba(139, 107, 62, 0.1); color: var(--verb-decode); }
-        .verb-predict { background: rgba(62, 107, 139, 0.1); color: var(--verb-predict); }
-        .verb-discover { background: rgba(107, 139, 94, 0.1); color: var(--verb-discover); }
-        .verb-play { background: rgba(139, 62, 107, 0.1); color: var(--verb-play); }
-        .verb-admire { background: rgba(122, 113, 104, 0.1); color: var(--verb-admire); }
-        .experiment h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
-        .experiment .wondering { font-size: 15px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px; }
-        .experiment .wondering a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--card-border); }
-        .experiment .surprised { font-size: 14px; color: var(--ink-muted); line-height: 1.7; padding-left: 16px; border-left: 2px solid var(--card-border); margin-bottom: 20px; font-style: italic; }
-        .experiment .try-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; transition: color 0.2s; }
-        .experiment .try-link:hover { color: var(--accent-hover); }
-        .experiment .try-link svg { width: 14px; height: 14px; transition: transform 0.2s; }
-        .experiment .try-link:hover svg { transform: translateX(3px); }
-        .admire-card { background: transparent; border: 1px dashed var(--card-border); border-radius: 12px; padding: 28px 32px; margin-bottom: 20px; }
-        .admire-card h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 20px; color: var(--ink); margin-bottom: 4px; }
-        .admire-card .creator { font-size: 13px; color: var(--ink-faint); margin-bottom: 12px; }
-        .admire-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
-        .admire-card a { color: var(--accent); text-decoration: none; }
-        .admire-card a:hover { text-decoration: underline; }
-        .wondering-next { padding: 0 0 40px; }
-        .wondering-next ul { list-style: none; padding: 0; }
-        .wondering-next li { font-size: 15px; color: var(--ink-soft); padding: 10px 0; border-bottom: 1px solid var(--card-border); line-height: 1.7; }
-        .wondering-next li::before { content: '\2192  '; color: var(--ink-faint); }
-        .community { padding: 0 0 40px; }
-        .community p { font-size: 15px; color: var(--ink-soft); line-height: 1.8; }
-        .community a { color: var(--accent); text-decoration: none; }
-        .community a:hover { text-decoration: underline; }
-        footer { padding: 60px 0 80px; border-top: 1px solid var(--card-border); margin-top: 40px; }
-        footer .contact { font-size: 15px; color: var(--ink-muted); }
-        footer .contact a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--card-border); transition: border-color 0.2s; }
-        footer .contact a:hover { border-color: var(--ink); }
-        footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        @media (max-width: 600px) { .hero { padding: 120px 0 60px; } .experiment { padding: 24px; } nav .nav-links { gap: 16px; } nav .nav-links a { font-size: 12px; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>santry.ai</title>
+<meta name="description" content="Experiments in what AI can actually do. Built by Bill Santry.">
+<meta name="author" content="Bill Santry">
+<meta property="article:published_time" content="2026-04-06">
+<meta property="article:author" content="Bill Santry">
+<meta property="og:title" content="santry.ai">
+<meta property="og:description" content="We've found a unicorn and are using it to pull a plow. These experiments explore how far AI can actually go.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://santry.ai">
+<meta property="og:image" content="https://santry.ai/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="santry.ai">
+<meta name="twitter:description" content="We've found a unicorn and are using it to pull a plow. These experiments explore how far AI can actually go.">
+<meta name="twitter:image" content="https://santry.ai/og-image.jpg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+--warm-bg: #f5f0e8;
+--ink: #1a1714;
+--ink-soft: #3d3730;
+--ink-muted: #7a7168;
+--ink-faint: #b0a899;
+--accent: #c62828;
+--accent-hover: #a83d22;
+--card-bg: #faf7f2;
+--card-border: rgba(26, 23, 20, 0.06);
+--verb-comfort: #5b7f5e;
+--verb-decode: #8b6b3e;
+--verb-predict: #3e6b8b;
+--verb-discover: #6b8b5e;
+--verb-play: #8b3e6b;
+--verb-admire: #7a7168;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+background: var(--warm-bg);
+color: var(--ink);
+font-family: 'Hanken Grotesk', sans-serif;
+font-weight: 400;
+font-size: 16px;
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+}
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+pointer-events: none;
+z-index: 0;
+}
+.container { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 24px; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(245, 240, 232, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); }
+nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+nav .site-name { text-decoration: none; display: flex; align-items: center; }
+nav .site-name img { height: 28px; width: auto; }
+nav .nav-links { display: flex; gap: 24px; list-style: none; }
+nav .nav-links a { font-size: 13px; font-weight: 500; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.02em; text-transform: lowercase; transition: color 0.2s; }
+nav .nav-links a:hover { color: var(--ink); }
+.hero { padding: 140px 0 32px; text-align: left; }
+.hero .name { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+.hero blockquote { font-family: 'Newsreader', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 300; font-style: italic; line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 12px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+.hero .attribution { font-size: 13px; color: var(--ink-faint); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s; }
+.hero .attribution a { color: var(--ink-faint); border-bottom: 1px solid var(--card-border); text-decoration: none; }
+.hero .attribution a:hover { color: var(--ink); border-color: var(--ink-muted); }
+.hero .intro { font-size: 16px; line-height: 1.8; color: var(--ink-soft); max-width: 580px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px; padding-top: 48px; }
+.experiments { padding: 0 0 40px; }
+.experiment { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; margin-bottom: 24px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.experiment:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(26, 23, 20, 0.06); }
+.experiment .screenshot, .admire-card .screenshot {
+width: 100%;
+border-radius: 8px;
+margin-bottom: 20px;
+border: 1px solid var(--card-border);
+display: block;
+transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+cursor: pointer;
+}
+.experiment .screenshot:hover, .admire-card .screenshot:hover {
+transform: scale(1.015);
+box-shadow: 0 6px 24px rgba(26, 23, 20, 0.1);
+opacity: 0.92;
+}
+.experiment .screenshot:active, .admire-card .screenshot:active {
+transform: scale(0.995);
+}
+.experiment-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.verb-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: lowercase; padding: 3px 10px; border-radius: 4px; line-height: 1; }
+.verb-comfort { background: rgba(91, 127, 94, 0.1); color: var(--verb-comfort); }
+.verb-decode { background: rgba(139, 107, 62, 0.1); color: var(--verb-decode); }
+.verb-predict { background: rgba(62, 107, 139, 0.1); color: var(--verb-predict); }
+.verb-discover { background: rgba(107, 139, 94, 0.1); color: var(--verb-discover); }
+.verb-play { background: rgba(139, 62, 107, 0.1); color: var(--verb-play); }
+.verb-admire { background: rgba(122, 113, 104, 0.1); color: var(--verb-admire); }
+.experiment h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
+.experiment .wondering { font-size: 15px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px; }
+.experiment .wondering a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--card-border); }
+.experiment .surprised { font-size: 14px; color: var(--ink-muted); line-height: 1.7; padding-left: 16px; border-left: 2px solid var(--card-border); margin-bottom: 20px; font-style: italic; }
+.experiment .try-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; transition: color 0.2s; }
+.experiment .try-link:hover { color: var(--accent-hover); }
+.experiment .try-link svg { width: 14px; height: 14px; transition: transform 0.2s; }
+.experiment .try-link:hover svg { transform: translateX(3px); }
+.admire-card { background: transparent; border: 1px dashed var(--card-border); border-radius: 12px; padding: 28px 32px; margin-bottom: 20px; }
+.admire-card h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 20px; color: var(--ink); margin-bottom: 4px; }
+.admire-card .creator { font-size: 13px; color: var(--ink-faint); margin-bottom: 12px; }
+.admire-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+.admire-card a { color: var(--accent); text-decoration: none; }
+.admire-card a:hover { text-decoration: underline; }
+.wondering-next { padding: 0 0 40px; }
+.wondering-next ul { list-style: none; padding: 0; }
+.wondering-next li { font-size: 15px; color: var(--ink-soft); padding: 10px 0; border-bottom: 1px solid var(--card-border); line-height: 1.7; }
+.wondering-next li::before { content: '\2192 '; color: var(--ink-faint); }
+.community { padding: 0 0 40px; }
+.community p { font-size: 15px; color: var(--ink-soft); line-height: 1.8; }
+.community a { color: var(--accent); text-decoration: none; }
+.community a:hover { text-decoration: underline; }
+footer { padding: 60px 0 80px; border-top: 1px solid var(--card-border); margin-top: 40px; }
+footer .contact { font-size: 15px; color: var(--ink-muted); }
+footer .contact a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--card-border); transition: border-color 0.2s; }
+footer .contact a:hover { border-color: var(--ink); }
+footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 600px) { .hero { padding: 120px 0 60px; } .experiment { padding: 24px; } nav .nav-links { gap: 16px; } nav .nav-links a { font-size: 12px; } }
+</style>
 </head>
 <body>
 <nav>
-    <div class="container">
-        <a href="#" class="site-name"><img src="logo.png" alt="SANTRY.AI"></a>
-        <ul class="nav-links">
-            <li><a href="#experiments">experiments</a></li>
-            <li><a href="#admire">admire</a></li>
-            <li><a href="#wondering">wondering</a></li>
-            <li><a href="#contact">contact</a></li>
-        </ul>
-    </div>
+<div class="container">
+<a href="#" class="site-name"><img src="logo.png" alt="SANTRY.AI"></a>
+<ul class="nav-links">
+<li><a href="#experiments">experiments</a></li>
+<li><a href="#admire">admire</a></li>
+<li><a href="#wondering">wondering</a></li>
+<li><a href="#contact">contact</a></li>
+</ul>
+</div>
 </nav>
 
 <section class="hero">
-    <div class="container">
-        <p class="name">Bill Santry</p>
-        <blockquote>&#8220;We've found a unicorn and are using it to pull a plow.&#8221;</blockquote>
-        <p class="attribution"> - Anonymous respondent <a href="https://www.anthropic.com/features/81k-interviews" target="_blank">from a survey of 81,000 AI users</a>, March 2026</p>
-        <p class="intro">A major AI provider asked 81,000 people across 159 countries what they want from AI. The overwhelming answer was productivity: faster emails, better reports, automated tasks. But that barely scratches the surface of what's possible. This site is a collection of experiments exploring what else AI can do, work by others that inspires me, and musings on what could come next.</p>
-    </div>
+<div class="container">
+<p class="name">Bill Santry</p>
+<blockquote>&#8220;We've found a unicorn and are using it to pull a plow.&#8221;</blockquote>
+<p class="attribution"> - Anonymous respondent <a href="https://www.anthropic.com/features/81k-interviews" target="_blank">from a survey of 81,000 AI users</a>, March 2026</p>
+<p class="intro">A major AI provider asked 81,000 people across 159 countries what they want from AI. The overwhelming answer was productivity: faster emails, better reports, automated tasks. But that barely scratches the surface of what's possible. This site is a collection of experiments exploring what else AI can do, work by others that inspires me, and musings on what could come next.</p>
+</div>
 </section>
 
 <section id="experiments" class="experiments">
-    <div class="container">
-        <p class="section-label">Experiments</p>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-discover">discover</span>
-                <h3>FedCert</h3>
-            </div>
-            <a href="https://fedcert.santry.ai" target="_blank"><img src="fedcert.jpg" alt="FedCert screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">USAJobs has thousands of open postings, and federal applicants spend hours scrolling through them looking for a fit. Most of those postings aren&#8217;t actually open to most people  -  hiring path eligibility, grade ceilings, and series alignment quietly disqualify you before you even read the qualifications. Could AI read a resume the way a federal HR specialist would, and rank only the postings you can actually win?</p>
-            <p class="surprised">The honest scoring matters more than the matching. Most resume-screening tools give everyone an inflated score because users like high numbers. FedCert deliberately scores most fits in the 4-7 range, with 8+ reserved for genuine matches. A 6/10 with three honest reasons why is more actionable than a fake 9/10  -  and people seem to trust the tool more <em>because</em> it&#8217;s willing to give them a 4.</p>
-            <a href="https://fedcert.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-decode">decode</span>
-                <h3>MedBill Explainer</h3>
-            </div>
-            <a href="https://medbill.santry.ai" target="_blank"><img src="medbill.jpg" alt="MedBill Explainer screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">Medical bills are complex. What if you could upload a bill or an EOB and get a plain-English explanation of what you're actually being charged for - and flag potential errors? And could you do it without compromising patient privacy?</p>
-            <p class="surprised">Two things stood out. First, the appeal letter generation. I built it as a secondary feature, almost an afterthought, but it turned out to be the thing people actually needed. Most people don't want to read their bill - they want to know if something's wrong and what to do about it. Second, privacy had to be non-negotiable. The app stores nothing: no database, no server disk, no AI training on your data. Everything lives in memory for seconds, then disappears. There's a sample bill built in so you can try it without uploading anything personal.</p>
-            <a href="https://medbill.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-		
-		
-		<div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-decode">decode</span>
-                <h3>Legislative Intelligence Platform</h3>
-            </div>
-            <a href="https://lip.santry.ai" target="_blank"><img src="lip.jpg" alt="Legislative Intelligence Platform screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">Policy organizations track hundreds of bills across federal and state legislatures. Most of that work is manual  -  staffers reading summaries, flagging relevance, writing briefs. Could AI do the triage so humans could focus on strategy?</p>
-            <p class="surprised">The scoring model. I expected relevance matching to be straightforward, but the interesting problem turned out to be multi-dimensional impact scoring. A bill&#8217;s text might not mention your industry at all, but its downstream effects could reshape it. Teaching the model to see around corners was the real challenge.</p>
-            <a href="https://lip.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-predict">predict</span>
-                <h3>Invasive Species Intelligence</h3>
-            </div>
-            <a href="https://invasive.santry.ai" target="_blank"><img src="invasive.jpg" alt="Invasive Species Intelligence screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">Invasive species move through waterways, hitch rides on commercial vessels, and exploit gaps in infrastructure. The data exists  -  USGS sensors, vessel tracking, barrier locations  -  but nobody was fusing it into a single intelligence picture. Could AI connect those dots?</p>
-            <p class="surprised">The Great Lakes Fishery Commission&#8217;s sea lamprey barrier data changed the whole project. When I overlaid barrier locations with vessel traffic patterns and species sighting data, risk corridors emerged that nobody had mapped before. The AI wasn&#8217;t discovering new data  -  it was seeing relationships humans hadn&#8217;t connected.</p>
-            <a href="https://invasive.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-        <!--<div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-predict">predict</span>
-                <h3>Polar Signals</h3>
-            </div>
-            <a href="https://polarsignals.santry.ai" target="_blank"><img src="polarsignals.jpg" alt="Polar Signals screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">A <a href="https://www.wsj.com/world/china-arctic-military-submarines-b4e988b9" target="_blank">Wall Street Journal investigation</a> revealed how China is pushing into the Arctic alongside Russia  -  building military proximity to both Europe and America through a region most people still think of as empty ice. I read that and thought: the signals are all there  -  vessel traffic, ice conditions, port infrastructure, military posture  -  but nobody is fusing them into one picture. What would an OSINT platform look like that modeled Arctic operational viability in real time?</p>
-            <p class="surprised">How much of operational viability comes down to timing. The individual signals  -  ice thickness, port accessibility, vessel positioning  -  are each well-understood. But the window where they all align is narrow and shifts unpredictably. The platform&#8217;s value isn&#8217;t in any single data stream; it&#8217;s in showing when the window opens and who&#8217;s positioned to exploit it.</p>
-            <a href="https://polarsignals.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>-->
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-play">play</span>
-                <h3>Not a Lottery Ticket</h3>
-            </div>
-            <a href="https://lottery.santry.ai" target="_blank"><img src="lottery.jpg" alt="Not a Lottery Ticket screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">&#8220;Zero to One&#8221; argues that your worldview  -  optimistic or pessimistic, determinate or indeterminate  -  shapes your outcomes more than talent or luck. Silicon Valley the HBO show made that thesis feel real in a way the book couldn&#8217;t. Could you take it further and make it <em>playable</em>? What if it was an arcade game?</p>
-            <p class="surprised">Determinate pessimism is more fun to play than I expected. The fortress strategy  -  ration, defend, build walls  -  creates a compelling gameplay loop even though it leads to low outcomes. Players kept choosing it because it felt safe. That&#8217;s the whole point, made visceral.</p>
-            <a href="https://lottery.santry.ai" target="_blank" class="try-link">Play it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-play">play</span>
-                <h3>Bracketology</h3>
-            </div>
-            <a href="https://brackets.santry.ai" target="_blank"><img src="brackets.jpg" alt="Bracketology screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">March Madness bracket pools are one of the few things that make millions of people care about probability for three weeks a year. Could I build a real-time bracket app that handles the full tournament  -  68 teams, play-in games, live scoring  -  as a full-stack exercise?</p>
-            <p class="surprised">The cascade logic. When you change a pick in round 1, it has to propagate through every downstream round and invalidate affected picks. Getting that right  -  the &#8220;undo&#8221; problem  -  was harder than anything else in the app. It&#8217;s a tree traversal disguised as a sports app.</p>
-            <p style="font-size: 13px; color: var(--accent-hover); margin-top: 16px; font-style: italic;">The live app runs during tournament season. Back in March 2027.</p>
-        </div>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-comfort">comfort</span>
-                <h3>ScriptureScape</h3>
-            </div>
-            <a href="https://scripture.santry.ai" target="_blank"><img src="scripture.jpg" alt="ScriptureScape screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">Could AI meet someone in a hard moment  -  not with advice, but with the right scripture and a beautiful image? Not a search engine for Bible verses, but something that listens to what you&#8217;re going through and responds with care.</p>
-            <p class="surprised">The watercolor illustrations changed everything. I expected the verse matching to be the hard part, but it was the pairing of words with a generated image that made people pause. The combination felt less like a chatbot and more like receiving a handwritten note.</p>
-            <a href="https://scripture.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-        <div class="experiment fade-in">
-            <div class="experiment-header">
-                <span class="verb-tag verb-comfort">comfort</span>
-                <h3>PHQ-9 Companion</h3>
-            </div>
-            <a href="https://phq9.santry.ai" target="_blank"><img src="phq9.jpg" alt="PHQ-9 Companion screenshot" class="screenshot" loading="lazy"></a>
-            <p class="wondering">The PHQ-9 is one of the most widely used mental health screening tools in the world, but it&#8217;s a cold, clinical checklist. What if AI could walk someone through those same questions in a way that felt more like a conversation than a form?</p>
-            <p class="surprised">How much the framing matters. The same nine questions, asked differently, surface different answers. People reflected more honestly when the questions didn&#8217;t feel like a test. That&#8217;s not a technology insight  -  it&#8217;s a human one.</p>
-            <a href="https://phq9.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-
-    </div>
+<div class="container">
+<p class="section-label">Experiments</p>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-discover">discover</span>
+<h3>FedCert</h3>
+</div>
+<a href="https://fedcert.santry.ai" target="_blank"><img src="fedcert.jpg" alt="FedCert screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">USAJobs has thousands of open postings, and federal applicants spend hours scrolling through them looking for a fit. Most of those postings aren&#8217;t actually open to most people - hiring path eligibility, grade ceilings, and series alignment quietly disqualify you before you even read the qualifications. Could AI read a resume the way a federal HR specialist would, and rank only the postings you can actually win?</p>
+<p class="surprised">The honest scoring matters more than the matching. Most resume-screening tools give everyone an inflated score because users like high numbers. FedCert deliberately scores most fits in the 4-7 range, with 8+ reserved for genuine matches. A 6/10 with three honest reasons why is more actionable than a fake 9/10 - and people seem to trust the tool more <em>because</em> it&#8217;s willing to give them a 4.</p>
+<a href="https://fedcert.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-decode">decode</span>
+<h3>MedBill Explainer</h3>
+</div>
+<a href="https://medbill.santry.ai" target="_blank"><img src="medbill.jpg" alt="MedBill Explainer screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">Medical bills are complex. What if you could upload a bill or an EOB and get a plain-English explanation of what you're actually being charged for - and flag potential errors? And could you do it without compromising patient privacy?</p>
+<p class="surprised">Two things stood out. First, the appeal letter generation. I built it as a secondary feature, almost an afterthought, but it turned out to be the thing people actually needed. Most people don't want to read their bill - they want to know if something's wrong and what to do about it. Second, privacy had to be non-negotiable. The app stores nothing: no database, no server disk, no AI training on your data. Everything lives in memory for seconds, then disappears. There's a sample bill built in so you can try it without uploading anything personal.</p>
+<a href="https://medbill.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-decode">decode</span>
+<h3>Legislative Intelligence Platform</h3>
+</div>
+<a href="https://lip.santry.ai" target="_blank"><img src="lip.jpg" alt="Legislative Intelligence Platform screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">Policy organizations track hundreds of bills across federal and state legislatures. Most of that work is manual - staffers reading summaries, flagging relevance, writing briefs. Could AI do the triage so humans could focus on strategy?</p>
+<p class="surprised">The scoring model. I expected relevance matching to be straightforward, but the interesting problem turned out to be multi-dimensional impact scoring. A bill&#8217;s text might not mention your industry at all, but its downstream effects could reshape it. Teaching the model to see around corners was the real challenge.</p>
+<a href="https://lip.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-decode">decode</span>
+<h3>The Agentic AI Metro</h3>
+</div>
+<a href="/metro"><img src="metro.png" alt="The Agentic AI Metro transit map" class="screenshot" loading="lazy"></a>
+<p class="wondering">Every week brings a new &#8220;AI agent&#8221; wrapped in its own vocabulary - RAG, MCP, orchestration, guardrails - and each one sounds like a separate breakthrough. It isn&#8217;t. Strip the jargon and the same handful of capabilities keep reappearing, just wired together in a different order. That distinction is the whole point: once you can see the shared track, you stop paying to rebuild the same plumbing for every project, and you can look at any new agent and tell what it&#8217;s actually made of. Could a subway map make that structure obvious in a single glance?</p>
+<p class="surprised">This began as a critique of someone&#8217;s &#8220;AI periodic table,&#8221; which forced every concept into an isolated tile. Drawing it as transit lines instead made an honest claim the grid couldn&#8217;t: a use case isn&#8217;t a thing, it&#8217;s a route. The products are just different paths through the same stations, and only three stops - a model, a safety check, and evaluation - sit on every line.</p>
+<a href="/metro" class="try-link">Ride it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-predict">predict</span>
+<h3>Invasive Species Intelligence</h3>
+</div>
+<a href="https://invasive.santry.ai" target="_blank"><img src="invasive.jpg" alt="Invasive Species Intelligence screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">Invasive species move through waterways, hitch rides on commercial vessels, and exploit gaps in infrastructure. The data exists - USGS sensors, vessel tracking, barrier locations - but nobody was fusing it into a single intelligence picture. Could AI connect those dots?</p>
+<p class="surprised">The Great Lakes Fishery Commission&#8217;s sea lamprey barrier data changed the whole project. When I overlaid barrier locations with vessel traffic patterns and species sighting data, risk corridors emerged that nobody had mapped before. The AI wasn&#8217;t discovering new data - it was seeing relationships humans hadn&#8217;t connected.</p>
+<a href="https://invasive.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<!--<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-predict">predict</span>
+<h3>Polar Signals</h3>
+</div>
+<a href="https://polarsignals.santry.ai" target="_blank"><img src="polarsignals.jpg" alt="Polar Signals screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">A <a href="https://www.wsj.com/world/china-arctic-military-submarines-b4e988b9" target="_blank">Wall Street Journal investigation</a> revealed how China is pushing into the Arctic alongside Russia - building military proximity to both Europe and America through a region most people still think of as empty ice. I read that and thought: the signals are all there - vessel traffic, ice conditions, port infrastructure, military posture - but nobody is fusing them into one picture. What would an OSINT platform look like that modeled Arctic operational viability in real time?</p>
+<p class="surprised">How much of operational viability comes down to timing. The individual signals - ice thickness, port accessibility, vessel positioning - are each well-understood. But the window where they all align is narrow and shifts unpredictably. The platform&#8217;s value isn&#8217;t in any single data stream; it&#8217;s in showing when the window opens and who&#8217;s positioned to exploit it.</p>
+<a href="https://polarsignals.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>-->
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-play">play</span>
+<h3>Not a Lottery Ticket</h3>
+</div>
+<a href="https://lottery.santry.ai" target="_blank"><img src="lottery.jpg" alt="Not a Lottery Ticket screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">&#8220;Zero to One&#8221; argues that your worldview - optimistic or pessimistic, determinate or indeterminate - shapes your outcomes more than talent or luck. Silicon Valley the HBO show made that thesis feel real in a way the book couldn&#8217;t. Could you take it further and make it <em>playable</em>? What if it was an arcade game?</p>
+<p class="surprised">Determinate pessimism is more fun to play than I expected. The fortress strategy - ration, defend, build walls - creates a compelling gameplay loop even though it leads to low outcomes. Players kept choosing it because it felt safe. That&#8217;s the whole point, made visceral.</p>
+<a href="https://lottery.santry.ai" target="_blank" class="try-link">Play it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-play">play</span>
+<h3>Bracketology</h3>
+</div>
+<a href="https://brackets.santry.ai" target="_blank"><img src="brackets.jpg" alt="Bracketology screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">March Madness bracket pools are one of the few things that make millions of people care about probability for three weeks a year. Could I build a real-time bracket app that handles the full tournament - 68 teams, play-in games, live scoring - as a full-stack exercise?</p>
+<p class="surprised">The cascade logic. When you change a pick in round 1, it has to propagate through every downstream round and invalidate affected picks. Getting that right - the &#8220;undo&#8221; problem - was harder than anything else in the app. It&#8217;s a tree traversal disguised as a sports app.</p>
+<p style="font-size: 13px; color: var(--accent-hover); margin-top: 16px; font-style: italic;">The live app runs during tournament season. Back in March 2027.</p>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-comfort">comfort</span>
+<h3>ScriptureScape</h3>
+</div>
+<a href="https://scripture.santry.ai" target="_blank"><img src="scripture.jpg" alt="ScriptureScape screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">Could AI meet someone in a hard moment - not with advice, but with the right scripture and a beautiful image? Not a search engine for Bible verses, but something that listens to what you&#8217;re going through and responds with care.</p>
+<p class="surprised">The watercolor illustrations changed everything. I expected the verse matching to be the hard part, but it was the pairing of words with a generated image that made people pause. The combination felt less like a chatbot and more like receiving a handwritten note.</p>
+<a href="https://scripture.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in">
+<div class="experiment-header">
+<span class="verb-tag verb-comfort">comfort</span>
+<h3>PHQ-9 Companion</h3>
+</div>
+<a href="https://phq9.santry.ai" target="_blank"><img src="phq9.jpg" alt="PHQ-9 Companion screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">The PHQ-9 is one of the most widely used mental health screening tools in the world, but it&#8217;s a cold, clinical checklist. What if AI could walk someone through those same questions in a way that felt more like a conversation than a form?</p>
+<p class="surprised">How much the framing matters. The same nine questions, asked differently, surface different answers. People reflected more honestly when the questions didn&#8217;t feel like a test. That&#8217;s not a technology insight - it&#8217;s a human one.</p>
+<a href="https://phq9.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+</div>
 </section>
 
 <section id="admire">
-    <div class="container">
-        <p class="section-label">Admire</p>
-
-        <div class="admire-card fade-in">
-            <h3>Video Theremin</h3>
-            <p class="creator">Mei / Free The Agents</p>
-            <a href="https://theremin.agentnow.org/" target="_blank"><img src="theremin.jpg" alt="Video Theremin screenshot" class="screenshot" loading="lazy"></a>
-            <p>A camera-powered instrument that turns hand gestures into music. Raise and lower your hands to play melody. Head bang for 808 kicks. Open your mouth to switch sounds. One elegant idea, beautifully executed. This is what I want to get to. <a href="https://theremin.agentnow.org/" target="_blank">Try it &#8594;</a></p>
-        </div>
-
-        <div class="admire-card fade-in">
-            <h3>Butterfly Effect</h3>
-            <p class="creator">Michelle Khuang</p>
-            <a href="https://michellekhuang.com/butterfly-effect/" target="_blank"><img src="michelle.jpg" alt="Butterfly Effect screenshot" class="screenshot" loading="lazy"></a>
-            <p>An interactive public art installation where strangers wrote wishes on origami paper, folded them into butterflies, and attached them as scales to a paper mach&#233; dragon in Harvard Square. No technology required. Just the idea that small, invisible acts of hope accumulate into something collective and alive. <a href="https://michellekhuang.com/butterfly-effect/" target="_blank">See it &#8594;</a></p>
-        </div>
-    </div>
+<div class="container">
+<p class="section-label">Admire</p>
+<div class="admire-card fade-in">
+<h3>Video Theremin</h3>
+<p class="creator">Mei / Free The Agents</p>
+<a href="https://theremin.agentnow.org/" target="_blank"><img src="theremin.jpg" alt="Video Theremin screenshot" class="screenshot" loading="lazy"></a>
+<p>A camera-powered instrument that turns hand gestures into music. Raise and lower your hands to play melody. Head bang for 808 kicks. Open your mouth to switch sounds. One elegant idea, beautifully executed. This is what I want to get to. <a href="https://theremin.agentnow.org/" target="_blank">Try it &#8594;</a></p>
+</div>
+<div class="admire-card fade-in">
+<h3>Butterfly Effect</h3>
+<p class="creator">Michelle Khuang</p>
+<a href="https://michellekhuang.com/butterfly-effect/" target="_blank"><img src="michelle.jpg" alt="Butterfly Effect screenshot" class="screenshot" loading="lazy"></a>
+<p>An interactive public art installation where strangers wrote wishes on origami paper, folded them into butterflies, and attached them as scales to a paper mach&#233; dragon in Harvard Square. No technology required. Just the idea that small, invisible acts of hope accumulate into something collective and alive. <a href="https://michellekhuang.com/butterfly-effect/" target="_blank">See it &#8594;</a></p>
+</div>
+</div>
 </section>
 
 <section id="wondering" class="wondering-next">
-    <div class="container">
-        <p class="section-label">What I&#8217;m wondering next</p>
-        <ul class="fade-in">
-            <li>What happens when you compare a fine-tuned model against an untrained one on the same task?</li>
-            <li>Can AI make conceptual art  -  not generate images, but actually <em>think</em> conceptually?</li>
-            <li>What would a &#8220;decode&#8221; experiment look like for tax code? For lease agreements? For insurance policies?</li>
-            <li>Is there a way to make an AI instrument that&#8217;s as elegant as the video theremin?</li>
-        </ul>
-    </div>
+<div class="container">
+<p class="section-label">What I&#8217;m wondering next</p>
+<ul class="fade-in">
+<li>What happens when you compare a fine-tuned model against an untrained one on the same task?</li>
+<li>Can AI make conceptual art - not generate images, but actually <em>think</em> conceptually?</li>
+<li>What would a &#8220;decode&#8221; experiment look like for tax code? For lease agreements? For insurance policies?</li>
+<li>Is there a way to make an AI instrument that&#8217;s as elegant as the video theremin?</li>
+</ul>
+</div>
 </section>
 
 <section class="community">
-    <div class="container">
-        <p class="section-label">The community that changed how I think</p>
-        <div class="fade-in">
-            <p>None of this would exist without the <a href="https://www.aicollective.com/chapters/dc" target="_blank">AI Collective DC</a>. If you&#8217;re experimenting with AI, find a community  -  in person. Not a Slack channel or a subreddit  -  a room full of people who show up regularly, share what they&#8217;re building, and aren&#8217;t afraid to ask obvious questions. The ideas that turn into experiments almost never come from sitting alone with a laptop. They come from someone saying something that makes you think differently. Go find that room.</p>
-        </div>
-    </div>
+<div class="container">
+<p class="section-label">The community that changed how I think</p>
+<div class="fade-in">
+<p>None of this would exist without the <a href="https://www.aicollective.com/chapters/dc" target="_blank">AI Collective DC</a>. If you&#8217;re experimenting with AI, find a community - in person. Not a Slack channel or a subreddit - a room full of people who show up regularly, share what they&#8217;re building, and aren&#8217;t afraid to ask obvious questions. The ideas that turn into experiments almost never come from sitting alone with a laptop. They come from someone saying something that makes you think differently. Go find that room.</p>
+</div>
+</div>
 </section>
 
 <footer id="contact">
-    <div class="container">
-        <p class="contact"><a href="mailto:bill@santry.ai">bill@santry.ai</a></p>
-        <p class="location">Arlington, VA</p>
-    </div>
+<div class="container">
+<p class="contact"><a href="mailto:bill@santry.ai">bill@santry.ai</a></p>
+<p class="location">Arlington, VA</p>
+</div>
 </footer>
 
 <script>
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
-    });
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('visible');
+observer.unobserve(entry.target);
+}
+});
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>

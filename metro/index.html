@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Agentic AI Metro</title>
+<style>
+  :root{
+    --paper:#FCFCFA; --sheet-edge:#E4E2DA; --backdrop:#DCDFE3; --ink:#161726; --muted:#A9AFB8;
+    --hr:#E03131; --commerce:#1864AB; --support:#2B8A3E; --insight:#6741D9; --content:#E8590C; --builder:#099268;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--backdrop);font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;color:var(--ink);
+    display:flex;justify-content:center;padding:18px;}
+  .wrap{background:var(--paper);width:100%;max-width:760px;border:1px solid var(--sheet-edge);
+    border-radius:8px;box-shadow:0 18px 50px -24px rgba(22,23,38,.45);overflow:hidden;}
+  header{padding:24px 24px 6px;}
+  .eyebrow{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:700;letter-spacing:3px;
+    text-transform:uppercase;font-size:13px;color:var(--ink);}
+  h1{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:700;letter-spacing:-1px;margin:.12em 0 .06em;
+    line-height:.98;font-size:clamp(34px,8.4vw,60px);}
+  .sub{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:400;color:#4a4c5e;margin:0;
+    font-size:clamp(15px,3.4vw,21px);}
+
+  /* sticky control + detail bar */
+  .sticky{position:sticky;top:0;z-index:5;background:var(--paper);
+    border-bottom:1px solid var(--sheet-edge);padding:12px 18px 14px;
+    box-shadow:0 8px 18px -16px rgba(22,23,38,.5);}
+  .cue{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:700;letter-spacing:.5px;
+    text-transform:uppercase;font-size:12px;color:#7a7c8a;margin-bottom:8px;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:700;font-size:14px;color:#fff;border:none;
+    padding:8px 13px;border-radius:999px;cursor:pointer;line-height:1;transition:opacity .18s,transform .05s;}
+  .chip:active{transform:translateY(1px);}
+  .chip.faded{opacity:.28;}
+  .chip[aria-pressed="true"]{box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--ink);}
+  .chip:focus-visible{outline:3px solid var(--ink);outline-offset:2px;}
+  .reset{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:700;font-size:14px;color:var(--ink);
+    background:transparent;border:1.5px solid var(--ink);padding:7px 13px;border-radius:999px;cursor:pointer;}
+  .reset:active{transform:translateY(1px);}
+
+  .detail{margin-top:11px;font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-size:15.5px;line-height:1.38;
+    color:#3c3e50;min-height:3.0em;}
+  .detail strong{color:var(--ink);font-weight:700;}
+  .detail .sw{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:7px;
+    vertical-align:baseline;transform:translateY(1px);}
+  .detail .skip{color:#8a8c98;}
+
+  .mapwrap{padding:6px 10px 4px;}
+  svg{width:100%;height:auto;display:block;}
+
+  footer{padding:12px 22px 20px;display:flex;justify-content:space-between;align-items:center;
+    gap:12px;flex-wrap:wrap;border-top:1px solid var(--sheet-edge);}
+  .by{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-weight:700;letter-spacing:1px;
+    text-transform:uppercase;font-size:13px;color:var(--ink);}
+  .by a{color:var(--ink);}
+  .legend{font-family:"Helvetica Neue", Helvetica, Arial, "Nimbus Sans", "Liberation Sans", sans-serif;font-size:13px;color:#7a7c8a;}
+
+  /* svg interaction states */
+  .route{fill:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;transition:opacity .22s ease;}
+  .hit{fill:none;stroke:transparent;stroke-width:30;cursor:pointer;}
+  .stop{stroke:var(--ink);stroke-width:2.6;fill:#fff;cursor:pointer;transition:opacity .22s ease,stroke-width .12s;}
+  .branch-stop{stroke:var(--ink);stroke-width:2.4;fill:#fff;cursor:pointer;transition:opacity .22s ease;}
+  .stop.sel,.branch-stop.sel{stroke-width:5;}
+  .origin{stroke:var(--ink);stroke-width:2.4;fill:#fff;transition:opacity .22s ease;}
+  .term{cursor:pointer;}
+  .ix-label,.ix-anno,.term-origin,.term-dest-text,.branch-label{transition:opacity .22s ease;}
+  text{pointer-events:none;}
+  .dim{opacity:.12 !important;}
+  .dimT{opacity:.16 !important;}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;}}
+
+  /* svg text roles */
+  .ix-label{font-family:"Helvetica Neue Condensed", "Arial Narrow", "Nimbus Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:700;fill:var(--ink);}
+  .ix-label-universal{font-family:"Helvetica Neue Condensed", "Arial Narrow", "Nimbus Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:700;fill:#fff;}
+  .ix-anno{font-family:"Helvetica Neue Condensed", "Arial Narrow", "Nimbus Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:400;fill:#8a8c98;}
+  .term-origin{font-family:"Helvetica Neue Condensed", "Arial Narrow", "Nimbus Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:700;fill:var(--ink);}
+  .term-dest-text{font-family:"Helvetica Neue Condensed", "Arial Narrow", "Nimbus Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:700;fill:#fff;}
+  .branch-label{font-family:"Helvetica Neue Condensed", "Arial Narrow", "Nimbus Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:400;fill:#3c3e50;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">GenAI ecosystem map</div>
+      <h1>The Agentic AI Metro</h1>
+      <p class="sub">How AI agents are actually built, drawn as a transit map.</p>
+    </header>
+
+    <div class="sticky">
+      <div class="cue">Tap a use case to trace it &nbsp;·&nbsp; tap any stop to see what it does</div>
+      <div class="chips" id="chips"></div>
+      <div class="detail" id="detail"></div>
+    </div>
+
+    <div class="mapwrap">
+      <svg id="map" viewBox="0 220 1080 1030" role="img" aria-label="Interactive metro map of AI capabilities and use cases"></svg>
+    </div>
+
+    <footer>
+      <div class="by">Made by Bill Santry · <a href="https://santry.ai">santry.ai</a></div>
+      <div class="legend">◇ data source&nbsp;&nbsp;&nbsp;▭ deployed agent</div>
+    </footer>
+  </div>
+
+<script>
+(function(){
+  const SVG="http://www.w3.org/2000/svg";
+  const svg=document.getElementById("map");
+  const COL={hr:"#E03131",commerce:"#1864AB",support:"#2B8A3E",insight:"#6741D9",content:"#E8590C",builder:"#099268"};
+  const INK="#161726";
+
+  const trackX=[400,456,512,568,624,680];
+  const termX =[140,300,460,620,780,940];
+
+  const ROWS=[
+    {id:"fm",  y:392, name:"Foundation Model",     universal:true,  anno:"every line begins here", desc:"The base LLM. Every agent reasons on top of one."},
+    {id:"rag", y:482, name:"Retrieval (RAG)",       universal:false, desc:"Pulls in outside knowledge so answers stay grounded."},
+    {id:"mem", y:572, name:"Memory",                universal:false, desc:"Holds context across turns and across sessions."},
+    {id:"tool",y:662, name:"Tool Calling",          universal:false, desc:"Lets the agent trigger real actions and APIs."},
+    {id:"plan",y:752, name:"Reasoning + Planning",  universal:false, desc:"Breaks a goal into ordered, multi-step plans."},
+    {id:"safe",y:842, name:"Safety + Guardrails",   universal:true,  anno:"every line is checked", desc:"Blocks harmful or off-policy output before it ships."},
+    {id:"hitl",y:932, name:"Human Review",          universal:false, desc:"Routes high-stakes calls to a person before acting."},
+    {id:"eval",y:1022,name:"Evaluation",            universal:true,  anno:"every line is measured", desc:"Tests and monitors whether the agent actually works."}
+  ];
+  const ROWmap=Object.fromEntries(ROWS.map(r=>[r.id,r]));
+  const FMy=ROWS[0].y, EVALy=ROWS[ROWS.length-1].y, ORIGy=300, DESTtop=1170, DESTcy=1198;
+
+  const LINES=[
+    {id:"hr",color:COL.hr,origin:"Employee request",dest:"HR Assistant",stops:["fm","rag","mem","tool","safe","hitl","eval"],top:null,bot:null},
+    {id:"commerce",color:COL.commerce,origin:"Shopper intent",dest:"Shopping Agent",stops:["fm","rag","mem","tool","plan","safe","hitl","eval"],top:null,
+      bot:{name:"Personalization",desc:"Tailors picks to the individual shopper."}},
+    {id:"support",color:COL.support,origin:"Customer ticket",dest:"Support Bot",stops:["fm","rag","mem","tool","safe","hitl","eval"],
+      top:{name:"Speech to Text",desc:"Turns spoken calls into text the agent can read."},bot:null},
+    {id:"insight",color:COL.insight,origin:"Raw documents",dest:"Analysis Agent",stops:["fm","rag","plan","safe","eval"],
+      top:{name:"Doc Parsing",desc:"Extracts text and tables from files and PDFs."},bot:null},
+    {id:"content",color:COL.content,origin:"Campaign brief",dest:"Marketing Agent",stops:["fm","mem","plan","safe","eval"],top:null,bot:null},
+    {id:"builder",color:COL.builder,origin:"Feature spec",dest:"Coding Agent",stops:["fm","tool","plan","safe","hitl","eval"],top:null,
+      bot:{name:"Code Execution",desc:"Runs and tests generated code in a sandbox."}}
+  ];
+  const LINEmap=Object.fromEntries(LINES.map(l=>[l.id,l]));
+  const linesByRow={}; ROWS.forEach(r=>linesByRow[r.id]=[]);
+  LINES.forEach(l=>l.stops.forEach(s=>linesByRow[s].push(l.id)));
+
+  function el(t,a,p){const e=document.createElementNS(SVG,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+
+  el("rect",{x:0,y:0,width:1080,height:1260,fill:"#FCFCFA",id:"bg"},svg);
+  const Lroutes=el("g",{},svg), Lhit=el("g",{},svg), Lstops=el("g",{},svg), Lterm=el("g",{},svg), Llabels=el("g",{},svg), Lfx=el("g",{},svg);
+  const defs=el("defs",{},svg);
+  (function(){ const f=el("filter",{id:"glow",x:"-60%",y:"-60%",width:"220%",height:"220%"},defs);
+    el("feGaussianBlur",{in:"SourceGraphic",stdDeviation:"6",result:"b"},f);
+    const fm2=el("feMerge",{},f); el("feMergeNode",{in:"b"},fm2); el("feMergeNode",{in:"SourceGraphic"},fm2); })();
+  const routeById={};
+
+  // routes + transparent wide hit targets
+  LINES.forEach((line,i)=>{
+    const tx=trackX[i], ox=termX[i], dx=termX[i];
+    const d=`M ${ox} ${ORIGy} L ${tx} ${FMy} L ${tx} ${EVALy} L ${dx} ${DESTtop}`;
+    routeById[line.id]=el("path",{class:"route",d,stroke:line.color,"data-line":line.id},Lroutes);
+    el("path",{class:"hit",d,"data-line":line.id,"data-kind":"line"},Lhit);
+  });
+
+  // origins
+  LINES.forEach((line,i)=>{
+    const x=termX[i], y=ORIGy, g=el("g",{class:"term","data-line":line.id,"data-kind":"line"},Lterm);
+    el("rect",{class:"origin",x:x-8,y:y-8,width:16,height:16,rx:2,transform:`rotate(45 ${x} ${y})`},g);
+    const t=el("text",{class:"term-origin","data-line":line.id,x:x,y:y-20,"text-anchor":"middle","font-size":17},g);
+    t.textContent=line.origin;
+  });
+
+  // destinations
+  LINES.forEach((line,i)=>{
+    const x=termX[i], g=el("g",{class:"term","data-line":line.id,"data-kind":"line"},Lterm);
+    const w=150,h=56;
+    el("rect",{x:x-w/2,y:DESTcy-h/2,width:w,height:h,rx:8,fill:line.color},g);
+    const parts=line.dest.split(" ");
+    const t1=el("text",{class:"term-dest-text","data-line":line.id,x:x,y:DESTcy-4,"text-anchor":"middle","font-size":19},g); t1.textContent=parts[0].toUpperCase();
+    const t2=el("text",{class:"term-dest-text","data-line":line.id,x:x,y:DESTcy+18,"text-anchor":"middle","font-size":19},g); t2.textContent=parts.slice(1).join(" ").toUpperCase();
+  });
+
+  // branch stops
+  function branch(line,i,br,where){
+    if(!br) return;
+    const tx=trackX[i]; let bx,by;
+    if(where==="top"){ const ox=termX[i]; by=(ORIGy+FMy)/2; bx=ox+(tx-ox)*((by-ORIGy)/(FMy-ORIGy)); }
+    else { const dx=termX[i]; by=(EVALy+DESTtop)/2; bx=tx+(dx-tx)*((by-EVALy)/(DESTtop-EVALy)); }
+    const g=el("g",{"data-line":line.id},Lstops);
+    el("circle",{class:"branch-stop",cx:bx,cy:by,r:8,"data-line":line.id,"data-kind":"branch","data-name":br.name,"data-desc":br.desc},g);
+    const left=bx<540; 
+    el("text",{class:"branch-label","data-line":line.id,x:left?bx-14:bx+14,y:by+5,"text-anchor":left?"end":"start","font-size":15},g).textContent=br.name;
+  }
+  LINES.forEach((line,i)=>{branch(line,i,line.top,"top");branch(line,i,line.bot,"bot");});
+
+  // interchange stops
+  ROWS.forEach(row=>{
+    LINES.forEach((line,i)=>{
+      if(line.stops.includes(row.id)){
+        el("circle",{class:"stop",cx:trackX[i],cy:row.y,r:9,"data-line":line.id,"data-kind":"cap","data-row":row.id},Lstops);
+      }
+    });
+  });
+
+  // row labels + annotations
+  const LX=372, RX=712;
+  ROWS.forEach(row=>{
+    if(row.universal){
+      const w=row.name.length*10.6+26;
+      el("rect",{x:LX-w,y:row.y-17,width:w,height:34,rx:17,fill:INK},Llabels);
+      el("text",{class:"ix-label-universal",x:LX-w/2,y:row.y+6,"text-anchor":"middle","font-size":20},Llabels).textContent=row.name;
+    } else {
+      el("text",{class:"ix-label",x:LX,y:row.y+7,"text-anchor":"end","font-size":21},Llabels).textContent=row.name;
+    }
+    if(row.anno) el("text",{class:"ix-anno",x:RX,y:row.y+6,"text-anchor":"start","font-size":16},Llabels).textContent=row.anno;
+  });
+
+  // ---------- interaction ----------
+  const mapNodes=[...svg.querySelectorAll("[data-line]")];
+  const detail=document.getElementById("detail");
+  const chipsBox=document.getElementById("chips");
+  let current=null; // {type:'line'|'cap'|'branch', key}
+
+  // ---- motion: a pulse that rides the selected line; a ping on a tapped capability ----
+  const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const TAIL=7, pulseDots=[];
+  for(let k=0;k<TAIL;k++) pulseDots.push(el("circle",{cx:-99,cy:-99,r:0,fill:"#fff",opacity:0,filter:"url(#glow)"},Lfx));
+  let rideRAF=null;
+  function easeInOut(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+  function hidePulse(){ if(rideRAF){cancelAnimationFrame(rideRAF);rideRAF=null;} pulseDots.forEach(d=>d.setAttribute("opacity",0)); }
+  function animateRide(id){
+    hidePulse();
+    if(reduceMotion) return;
+    const path=routeById[id]; if(!path) return;
+    const color=LINEmap[id].color, len=path.getTotalLength();
+    const dur=1600, step=len*0.038, start=performance.now();
+    pulseDots.forEach((d,k)=>d.setAttribute("fill", k===0?"#fff":color));
+    function frame(now){
+      const t=Math.min((now-start)/dur,1), e=easeInOut(t)*len;
+      pulseDots.forEach((d,k)=>{
+        const pos=e-k*step;
+        if(pos<0 || t>=1){ d.setAttribute("opacity",0); return; }
+        const pt=path.getPointAtLength(pos);
+        d.setAttribute("cx",pt.x); d.setAttribute("cy",pt.y);
+        d.setAttribute("r", k===0?11:Math.max(3,9-k*1.0));
+        d.setAttribute("opacity", k===0?1:Math.max(0,0.68-0.085*k));
+      });
+      if(t<1) rideRAF=requestAnimationFrame(frame); else hidePulse();
+    }
+    rideRAF=requestAnimationFrame(frame);
+  }
+  function pingStops(rowId){
+    if(reduceMotion) return;
+    svg.querySelectorAll('.stop[data-row="'+rowId+'"]').forEach(s=>{
+      const ring=el("circle",{cx:s.getAttribute("cx"),cy:s.getAttribute("cy"),r:9,fill:"none",
+        stroke:LINEmap[s.getAttribute("data-line")].color,"stroke-width":3,opacity:.9},Lfx);
+      const start=performance.now(), dur=520;
+      (function fr(now){ const t=Math.min((now-start)/dur,1); ring.setAttribute("r",9+t*16);
+        ring.setAttribute("opacity",.9*(1-t)); if(t<1) requestAnimationFrame(fr); else ring.remove(); })(performance.now());
+    });
+  }
+
+  const chipEls=LINES.map(line=>{
+    const b=document.createElement("button");
+    b.className="chip"; b.textContent=line.dest; b.style.background=line.color;
+    b.dataset.line=line.id; b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",()=>toggleLine(line.id));
+    chipsBox.appendChild(b); return b;
+  });
+  const reset=document.createElement("button");
+  reset.className="reset"; reset.textContent="Show all";
+  reset.addEventListener("click",clearAll); chipsBox.appendChild(reset);
+
+  function applyHighlight(set){
+    mapNodes.forEach(n=>{
+      const ln=n.getAttribute("data-line");
+      const isText=n.tagName.toLowerCase()==="text";
+      const dimmed = set && !set.has(ln);
+      n.classList.toggle(isText?"dimT":"dim", !!dimmed);
+    });
+    chipEls.forEach(c=>{
+      c.classList.toggle("faded", !!set && !set.has(c.dataset.line));
+      c.setAttribute("aria-pressed", set && set.size===1 && set.has(c.dataset.line) ? "true":"false");
+    });
+  }
+  function clearSelStops(){ svg.querySelectorAll(".sel").forEach(n=>n.classList.remove("sel")); }
+
+  function setDetailDefault(){
+    detail.innerHTML='<strong>Tap a use case</strong> to trace its route end to end, or <strong>tap any stop</strong> to see what it does and which agents rely on it.';
+  }
+  function toggleLine(id){ (current && current.type==="line" && current.key===id) ? clearAll() : selectLine(id); }
+
+  function selectLine(id){
+    const line=LINEmap[id];
+    current={type:"line",key:id};
+    clearSelStops();
+    applyHighlight(new Set([id]));
+    animateRide(id);
+    const uses=[]; ROWS.forEach(r=>{ if(line.stops.includes(r.id)) uses.push(r.name); });
+    if(line.top) uses.push(line.top.name);
+    if(line.bot) uses.push(line.bot.name);
+    const skips=ROWS.filter(r=>!line.stops.includes(r.id)).map(r=>r.name);
+    let html=`<span class="sw" style="background:${line.color}"></span><strong>${line.dest}</strong> rides ${uses.length} stops: ${uses.join(", ")}.`;
+    html += skips.length ? ` <span class="skip">Skips ${skips.join(" and ")}.</span>` : ` <span class="skip">Skips nothing.</span>`;
+    detail.innerHTML=html;
+  }
+
+  function selectCapability(rowId){
+    if(current && current.type==="cap" && current.key===rowId){ clearAll(); return; }
+    const row=ROWmap[rowId];
+    current={type:"cap",key:rowId};
+    const set=new Set(linesByRow[rowId]);
+    applyHighlight(set);
+    clearSelStops();
+    svg.querySelectorAll(`.stop[data-row="${rowId}"]`).forEach(n=>n.classList.add("sel"));
+    pingStops(rowId);
+    const names=linesByRow[rowId].map(id=>LINEmap[id].dest);
+    detail.innerHTML=`<strong>${row.name}</strong> — ${row.desc} <strong>Used by ${names.length} of 6:</strong> ${names.join(", ")}.`;
+  }
+
+  function selectBranch(node){
+    const id=node.getAttribute("data-line");
+    const name=node.getAttribute("data-name"), desc=node.getAttribute("data-desc");
+    if(current && current.type==="branch" && current.key===name){ clearAll(); return; }
+    current={type:"branch",key:name};
+    applyHighlight(new Set([id]));
+    animateRide(id);
+    clearSelStops(); node.classList.add("sel");
+    detail.innerHTML=`<span class="sw" style="background:${LINEmap[id].color}"></span><strong>${name}</strong> — ${desc} <strong>Used only by ${LINEmap[id].dest}.</strong>`;
+  }
+
+  function clearAll(){
+    current=null; hidePulse(); clearSelStops(); applyHighlight(null); setDetailDefault();
+  }
+
+  // delegate clicks
+  svg.addEventListener("click",e=>{
+    const t=e.target;
+    if(t.id==="bg"){ clearAll(); return; }
+    const kindNode=t.closest("[data-kind]");
+    if(!kindNode){ return; }
+    const kind=kindNode.getAttribute("data-kind");
+    if(kind==="line") toggleLine(kindNode.getAttribute("data-line"));
+    else if(kind==="cap") selectCapability(kindNode.getAttribute("data-row"));
+    else if(kind==="branch") selectBranch(kindNode);
+  });
+
+  clearAll();
+})();
+</script>
+</body>
+</html>
