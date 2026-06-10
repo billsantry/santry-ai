@@ -344,7 +344,23 @@
     else if(kind==="branch") selectBranch(kindNode);
   });
 
+  // ---- auto-play intro: ride each line in turn, then reveal all; cancel on any interaction ----
+  let introTimers=[], introOn=true;
+  function stopIntro(){ if(!introOn) return; introOn=false; introTimers.forEach(clearTimeout); introTimers=[]; }
+  ["pointerdown","keydown","wheel","touchstart"].forEach(ev=>window.addEventListener(ev,stopIntro,{passive:true}));
+  function runIntro(){
+    let d=650;
+    LINES.forEach(line=>{ introTimers.push(setTimeout(()=>{ if(introOn) selectLine(line.id); }, d)); d+=1150; });
+    introTimers.push(setTimeout(()=>{ if(introOn){ clearSelStops(); hidePulse();
+      detail.innerHTML='<strong>Six use cases, one shared network.</strong> Tap any line to ride it.'; } }, d));
+    const ids=LINES.map(l=>l.id), acc=new Set();
+    ids.forEach((id,k)=>introTimers.push(setTimeout(()=>{ if(!introOn) return; acc.add(id);
+      applyHighlight(acc.size===ids.length?null:new Set(acc)); }, d+80+k*150)));
+    introTimers.push(setTimeout(()=>{ if(introOn){ current=null; applyHighlight(null); setDetailDefault(); introOn=false; } }, d+80+ids.length*150+500));
+  }
+
   clearAll();
+  runIntro();
 })();
 </script>
 </body>
