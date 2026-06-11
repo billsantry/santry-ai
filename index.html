@@ -37,7 +37,7 @@
 --verb-comfort: #5b7f5e;
 --verb-decode: #8b6b3e;
 --verb-predict: #3e6b8b;
---verb-discover: #6b8b5e;
+--verb-discover: #3e808b;
 --verb-play: #8b3e6b;
 --verb-admire: #7a7168;
 }
@@ -101,7 +101,7 @@ transform: scale(0.995);
 .verb-comfort { background: rgba(91, 127, 94, 0.1); color: var(--verb-comfort); }
 .verb-decode { background: rgba(139, 107, 62, 0.1); color: var(--verb-decode); }
 .verb-predict { background: rgba(62, 107, 139, 0.1); color: var(--verb-predict); }
-.verb-discover { background: rgba(107, 139, 94, 0.1); color: var(--verb-discover); }
+.verb-discover { background: rgba(62, 128, 139, 0.1); color: var(--verb-discover); }
 .verb-play { background: rgba(139, 62, 107, 0.1); color: var(--verb-play); }
 .verb-admire { background: rgba(122, 113, 104, 0.1); color: var(--verb-admire); }
 .experiment h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
@@ -162,7 +162,18 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <section id="experiments" class="experiments">
 <div class="container">
 <p class="section-label">Experiments</p>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="enneagram">
+<div class="experiment-header">
+<span class="verb-tag verb-decode">decode</span>
+<h3>The Enneagram</h3>
+</div>
+
+<a href="https://enneagram.santry.ai" target="_blank"><img src="enneagram.jpg" alt="The Enneagram screenshot" class="screenshot" loading="lazy"></a>
+<p class="wondering">Every Enneagram test is the same wall of checkboxes, scoring your behavior to guess at your type. But the system was never really about behavior. It is about motivation, the why underneath the what. So what if the test were a conversation instead, one that asked about what drives you and listened to how you answered?</p>
+<p class="surprised">An adaptive interview turns out to fit the problem far better than a fixed questionnaire. The guide holds a hypothesis across all nine types and asks each question to resolve its own uncertainty, the way a thoughtful person would. The harder surprise was restraint: teaching it to stay contemplative rather than clinical, to never invent a quote, and to point you toward a real person when a tool has reached its limit.</p>
+<a href="https://enneagram.santry.ai" target="_blank" class="try-link">Begin <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+</div>
+<div class="experiment fade-in" id="metro">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
 <h3>The Agentic AI Metro</h3>
@@ -172,7 +183,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">This began as a critique of someone&#8217;s &#8220;AI periodic table,&#8221; which forced every concept into an isolated tile. Drawing it as transit lines instead made an honest claim the grid couldn&#8217;t: a use case isn&#8217;t a thing, it&#8217;s a route. The products are just different paths through the same stations, and only three stops - a model, a safety check, and evaluation - sit on every line.</p>
 <a href="/metro" class="try-link">Ride it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="fedcert">
 <div class="experiment-header">
 <span class="verb-tag verb-discover">discover</span>
 <h3>FedCert</h3>
@@ -182,7 +193,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">The honest scoring matters more than the matching. Most resume-screening tools give everyone an inflated score because users like high numbers. FedCert deliberately scores most fits in the 4-7 range, with 8+ reserved for genuine matches. A 6/10 with three honest reasons why is more actionable than a fake 9/10 - and people seem to trust the tool more <em>because</em> it&#8217;s willing to give them a 4.</p>
 <a href="https://fedcert.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="medbill">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
 <h3>MedBill Explainer</h3>
@@ -192,7 +203,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">Two things stood out. First, the appeal letter generation. I built it as a secondary feature, almost an afterthought, but it turned out to be the thing people actually needed. Most people don't want to read their bill - they want to know if something's wrong and what to do about it. Second, privacy had to be non-negotiable. The app stores nothing: no database, no server disk, no AI training on your data. Everything lives in memory for seconds, then disappears. There's a sample bill built in so you can try it without uploading anything personal.</p>
 <a href="https://medbill.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="legislative">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
 <h3>Legislative Intelligence Platform</h3>
@@ -202,7 +213,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">The scoring model. I expected relevance matching to be straightforward, but the interesting problem turned out to be multi-dimensional impact scoring. A bill&#8217;s text might not mention your industry at all, but its downstream effects could reshape it. Teaching the model to see around corners was the real challenge.</p>
 <a href="https://lip.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="invasive-species">
 <div class="experiment-header">
 <span class="verb-tag verb-predict">predict</span>
 <h3>Invasive Species Intelligence</h3>
@@ -222,7 +233,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">How much of operational viability comes down to timing. The individual signals - ice thickness, port accessibility, vessel positioning - are each well-understood. But the window where they all align is narrow and shifts unpredictably. The platform&#8217;s value isn&#8217;t in any single data stream; it&#8217;s in showing when the window opens and who&#8217;s positioned to exploit it.</p>
 <a href="https://polarsignals.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>-->
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="lottery">
 <div class="experiment-header">
 <span class="verb-tag verb-play">play</span>
 <h3>Not a Lottery Ticket</h3>
@@ -232,7 +243,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">Determinate pessimism is more fun to play than I expected. The fortress strategy - ration, defend, build walls - creates a compelling gameplay loop even though it leads to low outcomes. Players kept choosing it because it felt safe. That&#8217;s the whole point, made visceral.</p>
 <a href="https://lottery.santry.ai" target="_blank" class="try-link">Play it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="bracketology">
 <div class="experiment-header">
 <span class="verb-tag verb-play">play</span>
 <h3>Bracketology</h3>
@@ -242,7 +253,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">The cascade logic. When you change a pick in round 1, it has to propagate through every downstream round and invalidate affected picks. Getting that right - the &#8220;undo&#8221; problem - was harder than anything else in the app. It&#8217;s a tree traversal disguised as a sports app.</p>
 <p style="font-size: 13px; color: var(--accent-hover); margin-top: 16px; font-style: italic;">The live app runs during tournament season. Back in March 2027.</p>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="scripturescape">
 <div class="experiment-header">
 <span class="verb-tag verb-comfort">comfort</span>
 <h3>ScriptureScape</h3>
@@ -252,7 +263,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <p class="surprised">The watercolor illustrations changed everything. I expected the verse matching to be the hard part, but it was the pairing of words with a generated image that made people pause. The combination felt less like a chatbot and more like receiving a handwritten note.</p>
 <a href="https://scripture.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
-<div class="experiment fade-in">
+<div class="experiment fade-in" id="phq9">
 <div class="experiment-header">
 <span class="verb-tag verb-comfort">comfort</span>
 <h3>PHQ-9 Companion</h3>
