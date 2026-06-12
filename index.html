@@ -3,26 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>santry.ai</title>
-<meta name="description" content="Experiments in what AI can actually do. Built by Bill Santry.">
+<title>Bill Santry | AI Experiments in What It Is to Be Human</title>
+<meta name="description" content="My response to change is to build. AI experiments in self-understanding, decoding systems, comfort, and play. How can AI help us get in touch with what it is to be human?">
 <meta name="author" content="Bill Santry">
-<meta property="article:published_time" content="2026-04-06">
-<meta property="article:author" content="Bill Santry">
-<meta property="og:title" content="santry.ai">
-<meta property="og:description" content="We've found a unicorn and are using it to pull a plow. These experiments explore how far AI can actually go.">
+<link rel="canonical" href="https://santry.ai/">
+<meta property="og:title" content="Bill Santry | AI Experiments in What It Is to Be Human">
+<meta property="og:description" content="My response to change is to build. Experiments in self-understanding, decoding systems, finding inspiration, and play.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://santry.ai">
+<meta property="og:url" content="https://santry.ai/">
+<meta property="og:site_name" content="santry.ai">
 <meta property="og:image" content="https://santry.ai/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="santry.ai">
-<meta name="twitter:description" content="We've found a unicorn and are using it to pull a plow. These experiments explore how far AI can actually go.">
+<meta name="twitter:title" content="Bill Santry | AI Experiments in What It Is to Be Human">
+<meta name="twitter:description" content="My response to change is to build. Experiments in self-understanding, decoding systems, finding inspiration, and play.">
 <meta name="twitter:image" content="https://santry.ai/og-image.jpg">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://santry.ai/#website",
+      "url": "https://santry.ai/",
+      "name": "santry.ai",
+      "description": "AI experiments in self-understanding, decoding systems, comfort, and play, by Bill Santry.",
+      "publisher": { "@id": "https://santry.ai/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://santry.ai/#person",
+      "name": "Bill Santry",
+      "alternateName": "William Santry",
+      "url": "https://santry.ai/",
+      "jobTitle": "UX and AI Strategist",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Arlington",
+        "addressRegion": "VA",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "User Experience Design",
+        "Human-Centered Design",
+        "AI and Mental Health",
+        "Conversational AI"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/billsantry/",
+        "https://www.billsantry.com/",
+        "https://github.com/billsantry"
+      ]
+    }
+  ]
+}
+</script>
 <style>
 :root {
 --warm-bg: #f5f0e8;
@@ -70,10 +111,8 @@ nav .nav-links a { font-size: 13px; font-weight: 500; color: var(--ink-muted); t
 nav .nav-links a:hover { color: var(--ink); }
 .hero { padding: 140px 0 32px; text-align: left; }
 .hero .name { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
-.hero blockquote { font-family: 'Newsreader', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 300; font-style: italic; line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 12px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
-.hero .attribution { font-size: 13px; color: var(--ink-faint); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s; }
-.hero .attribution a { color: var(--ink-faint); border-bottom: 1px solid var(--card-border); text-decoration: none; }
-.hero .attribution a:hover { color: var(--ink); border-color: var(--ink-muted); }
+.hero .credo { font-family: 'Newsreader', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 300; font-style: italic; line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+.hero .credo .credo-emphasis { font-weight: 500; }
 .hero .intro { font-size: 16px; line-height: 1.8; color: var(--ink-soft); max-width: 580px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s; }
 .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px; padding-top: 48px; }
 .experiments { padding: 0 0 40px; }
@@ -104,7 +143,7 @@ transform: scale(0.995);
 .verb-discover { background: rgba(62, 128, 139, 0.1); color: var(--verb-discover); }
 .verb-play { background: rgba(139, 62, 107, 0.1); color: var(--verb-play); }
 .verb-admire { background: rgba(122, 113, 104, 0.1); color: var(--verb-admire); }
-.experiment h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
+.experiment h2 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); }
 .experiment .wondering { font-size: 15px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px; }
 .experiment .wondering a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--card-border); }
 .experiment .surprised { font-size: 14px; color: var(--ink-muted); line-height: 1.7; padding-left: 16px; border-left: 2px solid var(--card-border); margin-bottom: 20px; font-style: italic; }
@@ -113,7 +152,7 @@ transform: scale(0.995);
 .experiment .try-link svg { width: 14px; height: 14px; transition: transform 0.2s; }
 .experiment .try-link:hover svg { transform: translateX(3px); }
 .admire-card { background: transparent; border: 1px dashed var(--card-border); border-radius: 12px; padding: 28px 32px; margin-bottom: 20px; }
-.admire-card h3 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 20px; color: var(--ink); margin-bottom: 4px; }
+.admire-card h2 { font-family: 'Newsreader', serif; font-weight: 500; font-size: 20px; color: var(--ink); margin-bottom: 4px; }
 .admire-card .creator { font-size: 13px; color: var(--ink-faint); margin-bottom: 12px; }
 .admire-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
 .admire-card a { color: var(--accent); text-decoration: none; }
@@ -153,9 +192,8 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <section class="hero">
 <div class="container">
 <p class="name">Bill Santry</p>
-<blockquote>&#8220;We've found a unicorn and are using it to pull a plow.&#8221;</blockquote>
-<p class="attribution"> - Anonymous respondent <a href="https://www.anthropic.com/features/81k-interviews" target="_blank">from a survey of 81,000 AI users</a>, March 2026</p>
-<p class="intro">A major AI provider asked 81,000 people across 159 countries what they want from AI. The overwhelming answer was productivity: faster emails, better reports, automated tasks. But that barely scratches the surface of what's possible. This site is a collection of experiments exploring what else AI can do, work by others that inspires me, and musings on what could come next.</p>
+<h1 class="credo">My response to change is to <span class="credo-emphasis">build</span>.</h1>
+<p class="intro">AI is rewriting the terms of being human faster than anyone can theorize about it. So instead of philosophizing, I like to make things and see what I can learn from them. Experiments in self-understanding, in decoding systems, in finding inspiration, in play. My recent work explores one question more than any other: how can AI help us get in touch with what it is to be human?</p>
 </div>
 </section>
 
@@ -165,7 +203,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="enneagram">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
-<h3>The Enneagram</h3>
+<h2>The Enneagram</h2>
 </div>
 
 <a href="https://enneagram.santry.ai" target="_blank"><img src="enneagram.jpg" alt="The Enneagram screenshot" class="screenshot" loading="lazy"></a>
@@ -176,7 +214,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="metro">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
-<h3>The Agentic AI Metro</h3>
+<h2>The Agentic AI Metro</h2>
 </div>
 <a href="/metro"><img src="metro.png" alt="The Agentic AI Metro transit map" class="screenshot" loading="lazy"></a>
 <p class="wondering">Every week brings a new &#8220;AI agent&#8221; wrapped in its own vocabulary - RAG, MCP, orchestration, guardrails - and each one sounds like a separate breakthrough. It isn&#8217;t. Strip the jargon and the same handful of capabilities keep reappearing, just wired together in a different order. That distinction is the whole point: once you can see the shared track, you stop paying to rebuild the same plumbing for every project, and you can look at any new agent and tell what it&#8217;s actually made of. Could a subway map make that structure obvious in a single glance?</p>
@@ -186,7 +224,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="fedcert">
 <div class="experiment-header">
 <span class="verb-tag verb-discover">discover</span>
-<h3>FedCert</h3>
+<h2>FedCert</h2>
 </div>
 <a href="https://fedcert.santry.ai" target="_blank"><img src="fedcert.jpg" alt="FedCert screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">USAJobs has thousands of open postings, and federal applicants spend hours scrolling through them looking for a fit. Most of those postings aren&#8217;t actually open to most people - hiring path eligibility, grade ceilings, and series alignment quietly disqualify you before you even read the qualifications. Could AI read a resume the way a federal HR specialist would, and rank only the postings you can actually win?</p>
@@ -196,7 +234,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="medbill">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
-<h3>MedBill Explainer</h3>
+<h2>MedBill Explainer</h2>
 </div>
 <a href="https://medbill.santry.ai" target="_blank"><img src="medbill.jpg" alt="MedBill Explainer screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">Medical bills are complex. What if you could upload a bill or an EOB and get a plain-English explanation of what you're actually being charged for - and flag potential errors? And could you do it without compromising patient privacy?</p>
@@ -206,7 +244,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="legislative">
 <div class="experiment-header">
 <span class="verb-tag verb-decode">decode</span>
-<h3>Legislative Intelligence Platform</h3>
+<h2>Legislative Intelligence Platform</h2>
 </div>
 <a href="https://lip.santry.ai" target="_blank"><img src="lip.jpg" alt="Legislative Intelligence Platform screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">Policy organizations track hundreds of bills across federal and state legislatures. Most of that work is manual - staffers reading summaries, flagging relevance, writing briefs. Could AI do the triage so humans could focus on strategy?</p>
@@ -216,7 +254,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="invasive-species">
 <div class="experiment-header">
 <span class="verb-tag verb-predict">predict</span>
-<h3>Invasive Species Intelligence</h3>
+<h2>Invasive Species Intelligence</h2>
 </div>
 <a href="https://invasive.santry.ai" target="_blank"><img src="invasive.jpg" alt="Invasive Species Intelligence screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">Invasive species move through waterways, hitch rides on commercial vessels, and exploit gaps in infrastructure. The data exists - USGS sensors, vessel tracking, barrier locations - but nobody was fusing it into a single intelligence picture. Could AI connect those dots?</p>
@@ -226,7 +264,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <!--<div class="experiment fade-in">
 <div class="experiment-header">
 <span class="verb-tag verb-predict">predict</span>
-<h3>Polar Signals</h3>
+<h2>Polar Signals</h2>
 </div>
 <a href="https://polarsignals.santry.ai" target="_blank"><img src="polarsignals.jpg" alt="Polar Signals screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">A <a href="https://www.wsj.com/world/china-arctic-military-submarines-b4e988b9" target="_blank">Wall Street Journal investigation</a> revealed how China is pushing into the Arctic alongside Russia - building military proximity to both Europe and America through a region most people still think of as empty ice. I read that and thought: the signals are all there - vessel traffic, ice conditions, port infrastructure, military posture - but nobody is fusing them into one picture. What would an OSINT platform look like that modeled Arctic operational viability in real time?</p>
@@ -236,7 +274,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="lottery">
 <div class="experiment-header">
 <span class="verb-tag verb-play">play</span>
-<h3>Not a Lottery Ticket</h3>
+<h2>Not a Lottery Ticket</h2>
 </div>
 <a href="https://lottery.santry.ai" target="_blank"><img src="lottery.jpg" alt="Not a Lottery Ticket screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">&#8220;Zero to One&#8221; argues that your worldview - optimistic or pessimistic, determinate or indeterminate - shapes your outcomes more than talent or luck. Silicon Valley the HBO show made that thesis feel real in a way the book couldn&#8217;t. Could you take it further and make it <em>playable</em>? What if it was an arcade game?</p>
@@ -246,7 +284,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="bracketology">
 <div class="experiment-header">
 <span class="verb-tag verb-play">play</span>
-<h3>Bracketology</h3>
+<h2>Bracketology</h2>
 </div>
 <a href="https://brackets.santry.ai" target="_blank"><img src="brackets.jpg" alt="Bracketology screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">March Madness bracket pools are one of the few things that make millions of people care about probability for three weeks a year. Could I build a real-time bracket app that handles the full tournament - 68 teams, play-in games, live scoring - as a full-stack exercise?</p>
@@ -256,7 +294,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="scripturescape">
 <div class="experiment-header">
 <span class="verb-tag verb-comfort">comfort</span>
-<h3>ScriptureScape</h3>
+<h2>ScriptureScape</h2>
 </div>
 <a href="https://scripture.santry.ai" target="_blank"><img src="scripture.jpg" alt="ScriptureScape screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">Could AI meet someone in a hard moment - not with advice, but with the right scripture and a beautiful image? Not a search engine for Bible verses, but something that listens to what you&#8217;re going through and responds with care.</p>
@@ -266,7 +304,7 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="experiment fade-in" id="phq9">
 <div class="experiment-header">
 <span class="verb-tag verb-comfort">comfort</span>
-<h3>PHQ-9 Companion</h3>
+<h2>PHQ-9 Companion</h2>
 </div>
 <a href="https://phq9.santry.ai" target="_blank"><img src="phq9.jpg" alt="PHQ-9 Companion screenshot" class="screenshot" loading="lazy"></a>
 <p class="wondering">The PHQ-9 is one of the most widely used mental health screening tools in the world, but it&#8217;s a cold, clinical checklist. What if AI could walk someone through those same questions in a way that felt more like a conversation than a form?</p>
@@ -280,13 +318,13 @@ footer .location { font-size: 12px; color: var(--ink-faint); margin-top: 12px; }
 <div class="container">
 <p class="section-label">Admire</p>
 <div class="admire-card fade-in">
-<h3>Video Theremin</h3>
+<h2>Video Theremin</h2>
 <p class="creator">Mei / Free The Agents</p>
 <a href="https://theremin.agentnow.org/" target="_blank"><img src="theremin.jpg" alt="Video Theremin screenshot" class="screenshot" loading="lazy"></a>
 <p>A camera-powered instrument that turns hand gestures into music. Raise and lower your hands to play melody. Head bang for 808 kicks. Open your mouth to switch sounds. One elegant idea, beautifully executed. This is what I want to get to. <a href="https://theremin.agentnow.org/" target="_blank">Try it &#8594;</a></p>
 </div>
 <div class="admire-card fade-in">
-<h3>Butterfly Effect</h3>
+<h2>Butterfly Effect</h2>
 <p class="creator">Michelle Khuang</p>
 <a href="https://michellekhuang.com/butterfly-effect/" target="_blank"><img src="michelle.jpg" alt="Butterfly Effect screenshot" class="screenshot" loading="lazy"></a>
 <p>An interactive public art installation where strangers wrote wishes on origami paper, folded them into butterflies, and attached them as scales to a paper mach&#233; dragon in Harvard Square. No technology required. Just the idea that small, invisible acts of hope accumulate into something collective and alive. <a href="https://michellekhuang.com/butterfly-effect/" target="_blank">See it &#8594;</a></p>
