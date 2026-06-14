@@ -287,20 +287,17 @@ END INVASIVE SPECIES -->
 <span class="verb-tag verb-play">play</span>
 <h2>Bracketology</h2>
 </div>
-<img src="brackets.jpg" alt="Bracketology screenshot" class="screenshot" loading="lazy">
+<img src="brackets.jpg" alt="Bracketology screenshot" class="screenshot" loading="lazy" onclick="document.getElementById('bracket-modal').style.display='flex'" style="cursor:pointer;">
 <p class="wondering">March Madness bracket pools are one of the few things that make millions of people care about probability for three weeks a year. Could I build a real-time bracket app that handles the full tournament - 68 teams, play-in games, live scoring - as a full-stack exercise?</p>
 <p class="surprised">The cascade logic. When you change a pick in round 1, it has to propagate through every downstream round and invalidate affected picks. Getting that right - the &#8220;undo&#8221; problem - was harder than anything else in the app. It&#8217;s a tree traversal disguised as a sports app.</p>
 <p style="font-size: 13px; color: var(--accent-hover); margin-top: 16px; font-style: italic;">The live app runs during tournament season. Back in March 2027.</p>
+<div id="bracket-modal" onclick="this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(26,23,20,0.5); z-index:200; align-items:center; justify-content:center;">
+<div onclick="event.stopPropagation()" style="background:var(--card-bg); border-radius:12px; padding:32px; max-width:400px; margin:24px; text-align:center; box-shadow:0 16px 48px rgba(26,23,20,0.15);">
+<p style="font-family:'Newsreader',serif; font-size:20px; color:var(--ink); margin-bottom:12px;">Tournament season only</p>
+<p style="font-size:15px; color:var(--ink-soft); line-height:1.6;">The live app runs during March Madness. Back in March 2027.</p>
+<button onclick="document.getElementById('bracket-modal').style.display='none'" style="margin-top:20px; padding:8px 24px; background:var(--accent); color:white; border:none; border-radius:6px; font-size:14px; cursor:pointer;">Got it</button>
 </div>
-<div class="experiment fade-in" id="scripturescape">
-<div class="experiment-header">
-<span class="verb-tag verb-comfort">comfort</span>
-<h2>ScriptureScape</h2>
 </div>
-<a href="https://scripture.santry.ai" target="_blank"><img src="scripture.jpg" alt="ScriptureScape screenshot" class="screenshot" loading="lazy"></a>
-<p class="wondering">Could AI meet someone in a hard moment - not with advice, but with the right scripture and a beautiful image? Not a search engine for Bible verses, but something that listens to what you&#8217;re going through and responds with care.</p>
-<p class="surprised">The watercolor illustrations changed everything. I expected the verse matching to be the hard part, but it was the pairing of words with a generated image that made people pause. The combination felt less like a chatbot and more like receiving a handwritten note.</p>
-<a href="https://scripture.santry.ai" target="_blank" class="try-link">Try it <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
 </div>
 <div class="experiment fade-in" id="phq9">
 <div class="experiment-header">
